@@ -49,3 +49,5 @@ class BaseAgent(ABC):
 
     def get_metadata(self, key: str, default: Any = None) -> Any:
         return self._metadata.get(key, default)
+
+# 2019-04-19T17:53:22 update
