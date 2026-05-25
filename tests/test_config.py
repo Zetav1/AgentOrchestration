@@ -32,6 +32,16 @@ class TestConfig:
         assert data["key1"] == "value1"
         assert data["key2"] == "value2"
 
+    def test_env_overrides_literal_underscores(self, monkeypatch):
+        monkeypatch.setenv("AO_API__URL", "https://api.literal.io")
+        monkeypatch.setenv("AO_DATABASE_DEFAULT__HOST", "database_host")
+        monkeypatch.setenv("AO_SIMPLE_KEY", "simple_val")
+        
+        config = Config()
+        assert config.get("api_url") == "https://api.literal.io"
+        assert config.get("database.default_host") == "database_host"
+        assert config.get("simple.key") == "simple_val"
+
 # 2019-02-01T18:58:35 update
 
 # 2019-07-31T13:45:15 update

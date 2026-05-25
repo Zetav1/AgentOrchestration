@@ -20,7 +20,10 @@ class Config:
         prefix = "AO_"
         for key, value in os.environ.items():
             if key.startswith(prefix):
-                config_key = key[len(prefix):].lower().replace("_", ".")
+                env_key = key[len(prefix):]
+                temp_key = env_key.replace("__", "@@")
+                config_key = temp_key.lower().replace("_", ".")
+                config_key = config_key.replace("@@", "_")
                 self._set_nested(config_key, value)
 
     def _set_nested(self, key: str, value: Any) -> None:
